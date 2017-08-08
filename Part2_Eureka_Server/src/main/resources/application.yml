@@ -1,0 +1,51 @@
+security:
+  basic:
+    enabled: true               # 啟動一個基於安全的HTTP basic的認證
+  user:
+    name: leoliu                # 配置可以登入的user帳號
+    password: mypass            # 配置可以登入的user密碼
+spring:
+  application:
+    name: register-discovery-eureka
+---                             # 以連字符號把properties分段,此段在profiles=peer1時會生效
+spring:
+  profiles: peer1               # 指定profile=peer1
+server:
+  port: 8761                    # 指定peer1這台Eureka Server啟動的port
+eureka:
+  instance:
+    hostname: peer1             # 指定profile=peer1時，主機名稱是peer1
+  client:
+    #registerWithEureka: false   # 表示是否把自己註冊到Eureka server中,默認就為true,通常在Eureka Cluster Servers使用,此處若設false表示Eureka Server只有一台時
+    #fetchRegistry: false        # 表示是否要從其它的Eureka Server取得各微服務所註冊的消息,通常在Eureka Cluster Servers之間同步微服務資訊,默認為true,此處若設false表示Eureka Server只有一台時
+    serviceUrl:
+      #defaultZone: http://localhost:8761/eureka/                  # http://localhost:8761/eureka/,用戶或微服務要與Eureka Server溝通的地址,默認即為左顯示,若有多個地址可以用逗號隔開
+      defaultZone: http://leoliu:mypass@peer2:8762/eureka/,http://leoliu:mypass@peer3:8763/eureka/     # 把自己注册到peer2,peer3的Eureka Server上面去,同步資料,leoliu:mypass表示Eureka Server需要基本的帳/密之認證
+---                              # 以連字符號把properties分段,此段在profiles=peer2時會生效
+spring:
+  profiles: peer2                # 指定profile=peer2
+server:
+  port: 8762                     # 指定peer2這台Eureka Server啟動的port
+eureka:
+  instance:
+    hostname: peer2              # 指定profile=peer2時，主機名稱是peer2
+  client:
+    #registerWithEureka: false   # 表示是否把自己註冊到Eureka server中,默認就為true,通常在Eureka Cluster Servers使用,此處若設false表示Eureka Server只有一台時
+    #fetchRegistry: false        # 表示是否要從其它的Eureka Server取得各微服務所註冊的消息,通常在Eureka Cluster Servers之間同步微服務資訊,默認為true,此處若設false表示Eureka Server只有一台時
+    serviceUrl:           
+      #defaultZone: http://localhost:8761/eureka/                  # http://localhost:8761/eureka/,用戶或微服務要與Eureka Server溝通的地址,默認即為左顯示,若有多個地址可以用逗號隔開
+      defaultZone: http://leoliu:mypass@peer1:8761/eureka/,http://leoliu:mypass@peer3:8763/eureka/     # 把自己注册到peer1,peer3的Eureka Server上面去,同步資料,leoliu:mypass表示Eureka Server需要基本的帳/密之認證
+---                              # 以連字符號把properties分段,此段在profiles=peer3時會生效
+spring:
+  profiles: peer3                # 指定profile=peer3
+server:
+  port: 8763                     # 指定peer3這台Eureka Server啟動的port
+eureka:
+  instance:
+    hostname: peer3          # 指定profile=peer3時，主機名稱是peer3
+  client:
+    #registerWithEureka: false   # 表示是否把自己註冊到Eureka server中,默認就為true,通常在Eureka Cluster Servers使用,此處若設false表示Eureka Server只有一台時
+    #fetchRegistry: false        # 表示是否要從其它的Eureka Server取得各微服務所註冊的消息,通常在Eureka Cluster Servers之間同步微服務資訊,默認為true,此處若設false表示Eureka Server只有一台時
+    serviceUrl:           
+      #defaultZone: http://localhost:8761/eureka/                  # http://localhost:8761/eureka/,用戶或微服務要與Eureka Server溝通的地址,默認即為左顯示,若有多個地址可以用逗號隔開
+      defaultZone: http://leoliu:mypass@peer1:8761/eureka/,http://leoliu:mypass@peer2:8762/eureka/    # 把自己注册到peer1,peer2的Eureka Server上面去,同步資料,leoliu:mypass表示Eureka Server需要基本的帳/密之認證
