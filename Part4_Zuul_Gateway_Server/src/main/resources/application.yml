@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: zuul-gateway-server           # 指定要注冊到Eureka Server上的應用程式之名稱
+eureka:
+  client:
+    service-url:                        # http://localhost:8761/eureka/,表示用戶或微服務要與Eureka Server溝通的地址,默認即為左顯示,若有多個Eureka Server地址可以用逗號隔開
+      defaultZone: http://leoliu:mypass@peer1:8761/eureka/,http://leoliu:mypass@peer2:8762/eureka/,http://leoliu:mypass@peer3:8763/eureka/  # 若Eureka Server有設定基本認證時,需加上"帳號:密碼"的格式
+  instance:
+    prefer-ip-address: true             # 是否把自己的ip註冊到Eureka Server上,若為false表示會註冊此微服務所在電腦的hostname到Eureka Server上
+#下方主要是當你如果要啟動兩個zuul=gateway-server的service時,profiles=gateway1佔8040,profiles=gateway2佔8041
+---                             # 以連字符號把properties分段,此段在profiles=gateway1時會生效
+spring:
+  profiles: gateway1            # 指定profile=gateway1
+server:
+  port: 8040                    # 在profile=gateway1時,此zuul=gateway-server Process啟動的port
+---                             # 以連字符號把properties分段,此段在profiles=gateway2時會生效
+spring:
+  profiles: gateway2            # 指定profile=gateway2
+server:
+  port: 8041                    # 在profile=gateway2時,此zuul=gateway-server Process啟動的port
