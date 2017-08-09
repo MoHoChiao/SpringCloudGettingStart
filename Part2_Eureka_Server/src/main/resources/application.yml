@@ -6,7 +6,7 @@ security:
     password: mypass            # 配置可以登入的user密碼
 spring:
   application:
-    name: register-discovery-eureka
+    name: eureka-register-discovery-server
 ---                             # 以連字符號把properties分段,此段在profiles=peer1時會生效
 spring:
   profiles: peer1               # 指定profile=peer1
