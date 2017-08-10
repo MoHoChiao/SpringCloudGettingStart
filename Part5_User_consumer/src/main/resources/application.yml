@@ -1,0 +1,5 @@
+server:
+  port: 8010                                      # 此Consumer Process啟動的port
+spring:
+  application:
+    name: user-consumer                           # 指定要注冊到Eureka Server上的應用程式之名稱
