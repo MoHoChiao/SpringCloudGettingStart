@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: user-provider         # 在eureka server的應用程式名稱
+#下方主要是當你如果要啟動兩個user-provider的service時,profiles=provider1佔8000,profiles=provider2佔8001
+---                             # 以連字符號把properties分段,此段在profiles=provider1時會生效
+spring:
+  profiles: provider1           # 指定profile=provider1
+server:
+  port: 8000                    # 在profile=provider1時,此Provider Process啟動的port
+---                             # 以連字符號把properties分段,此段在profiles=provider2時會生效
+spring:
+  profiles: provider2           # 指定profile=provider2
+server:
+  port: 8001                    # 在profile=provider2時,此Provider Process啟動的port
