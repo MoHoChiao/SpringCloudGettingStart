@@ -5,7 +5,7 @@
 
 #### [Part 1: 2. Simple MicroService - Provider](./Part1_User_provider_simple/)
 
-#### [Part 2: 1. Eureka Server with HA(微服勨的註冊及管理)](./Part2_Eureka_Server/)
+#### [Part 2: 1. Eureka Server with HA(微服務的註冊及管理)](./Part2_Eureka_Server/)
 
 #### [Part 2: 2. Microservice Consumer in the Eureka Server(註冊服務消費者)](./Part2_User_consumer/)
 
@@ -19,4 +19,4 @@
 
 #### [Part 5: 2. Dispatch Config to Microservice Consumer](./Part5_User_consumer/)
 
-#### [Part 5: 3. Dispatch Config to Microservice Consumer](./Part5_User_provider/)
+#### [Part 5: 3. Dispatch Config to Microservice Provider](./Part5_User_provider/)
