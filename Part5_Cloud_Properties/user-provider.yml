@@ -1,0 +1,25 @@
+spring:                                 # Spring JPA相關設定
+  jpa:
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:                           # 指定資料庫來源
+    platform: h2                        # 指定資料庫類型
+    schema: classpath:schema.sql        # 指定h2資料庫的建表schema
+    data: classpath:data.sql            # 指定h2資料庫的資料schema
+logging:                                # 配置log，使hibernate jpa印出所執行的SQL
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+eureka:
+  client:
+    serviceUrl:                         # http://localhost:8761/eureka/,表示用戶或微服務要與Eureka Server溝通的地址,默認即為左顯示,若有多個Eureka Server地址可以用逗號隔開
+      defaultZone: http://leoliu:mypass@peer1:8761/eureka/,http://leoliu:mypass@peer2:8762/eureka/,http://leoliu:mypass@peer3:8763/eureka/  # 若Eureka Server有設定基本認證時,需加上"帳號:密碼"的格式
+  instance:
+    prefer-ip-address: true             # 是否把自己的ip註冊到Eureka Server上,若為false表示會註冊此微服務所在電腦的hostname到Eureka Server上
+    metadata-map:                       # 可以自己定義此instance的metadata,使用key/value的型式
+      my-metadata1: test provider metadata 1
+      my-metadata2: test provider metadata 2
